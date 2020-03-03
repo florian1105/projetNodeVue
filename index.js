@@ -60,7 +60,8 @@ app.get('/articles', (req, res) => {
 
 //all commentaires for one article
 app.get('/commentaires/:idArticle', (req, res) => {
-  ax.get('/commentaires/idArticle').then(function (response) {
+  var id = req.params.id;
+  ax.get(`/commentaires?q={"article":"${id}"}`).then(function (response) {
     // handle success
     res.json(response.data);
   });
