@@ -58,6 +58,30 @@ app.get('/articles', (req, res) => {
   });
 });
 
+//all commentaires for one article
+app.get('/commentaires/:idArticle', (req, res) => {
+  ax.get('/commentaires/idArticle').then(function (response) {
+    // handle success
+    res.json(response.data);
+  });
+});
+
+//add article
+app.get('/article/add', async(req, res) => {
+  ax.get('/articles').then(function (response) {
+    // handle success
+    res.json(response.data);
+  });
+});
+
+//modify article
+app.get('/article/modify/:id', (req, res) => {
+  ax.get('/articles').then(function (response) {
+    // handle success
+    res.json(response.data);
+  });
+});
+
 //one article specified by an id
 app.get('/article/:id', async(req, res) => {
 	var id = req.params.id;
