@@ -7,7 +7,7 @@ const passportJWT = require('passport-jwt')
 const axios = require('axios')
 var cors = require('cors')
 const secret = 'thisismysecret'
-const urlEncodedParser = bodyParser.urlencoded({ extended: false })
+const jSonParser = bodyParser.json()
 const app = express()
 app.use(cors())
 const users = [];
@@ -121,7 +121,7 @@ app.get('/private', passport.authenticate('jwt', { session: false }), (req, res)
   res.send('Hello ' + req.user.email)
 })
 
-app.post('/login', urlEncodedParser, async (req, res) => {
+app.post('/login', jSonParser, async (req, res) => {
   const email = req.body.email
   const password = req.body.password
 
