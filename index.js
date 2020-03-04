@@ -25,7 +25,7 @@ const ax = axios.create({
 
 })
 
-
+ax.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 
 const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
