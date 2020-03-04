@@ -5,9 +5,11 @@ const jwt = require('jsonwebtoken')
 const passport = require('passport')
 const passportJWT = require('passport-jwt')
 const axios = require('axios')
+var cors = require('cors')
 const secret = 'thisismysecret'
 const urlEncodedParser = bodyParser.urlencoded({ extended: false })
 const app = express()
+app.use(cors())
 const users = [];
 var request = require("request");
 
@@ -25,7 +27,6 @@ const ax = axios.create({
 
 })
 
-ax.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 
 const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
