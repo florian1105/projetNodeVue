@@ -59,6 +59,17 @@ app.get('/articles', (req, res) => {
   });
 });
 
+//all articles for one author
+app.get('/articles/:id', (req, res) => {
+  var id = req.params.id
+  ax.get(`/articles?q={"auteur.email":"${id}"}`).then(function (response) {
+    // handle success
+    res.json(response.data)
+  });
+});
+
+
+
 //all commentaires for one article
 app.get('/commentaires/:idArticle', (req, res) => {
   var id = req.params.id;
