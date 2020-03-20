@@ -88,8 +88,8 @@ app.get('/article/add', async(req, res) => {
 });
 
 //modify article
-app.get('/article/modify/:id', (req, res) => {
-  ax.get('/articles').then(function (response) {
+app.post('/article/modify/:id', (req, res) => {
+  ax.put('/articles/:id',res.body).then(function (response) {
     // handle success
     res.json(response.data);
   });
@@ -104,7 +104,7 @@ app.get('/article/:id', async(req, res) => {
 
 
 //one article specified by an id
-app.get('/article/delete/:id', async(req, res) => {
+app.get('/article/delete/:id', passport.authenticate('jwt', { session: false }), async(req, res) => {
 	var id = req.params.id;
   	var article = await ax.delete(`/articles/*?q={"id":${id}}`);
   	res.json(article.data);
