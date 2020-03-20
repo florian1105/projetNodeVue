@@ -89,7 +89,7 @@ app.get('/article/add', async(req, res) => {
 
 //modify article
 app.post('/article/modify/:id', (req, res) => {
-  ax.put('/articles/:id',res.body).then(function (response) {
+  ax.put('/articles/:id',req.body).then(function (response) {
     // handle success
     res.json(response.data);
   });
