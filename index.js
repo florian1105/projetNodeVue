@@ -89,10 +89,11 @@ app.get('/article/add', async(req, res) => {
 
 //modify article
 app.post('/article/modify/:id', async(req, res) => {
-  await ax.put('/articles/:id',req.json(req.body).then(function (response) {
+  console.log(req.body);
+  await ax.put('/articles/:id',req.body).then(function (response) {
     // handle success
     res.json(response.data);
-  }));
+  });
 });
 
 //one article specified by an id
