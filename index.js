@@ -92,7 +92,7 @@ app.post('/article/modify/:id', jSonParser,async(req, res) => {
   const id = req.params.id;
   const article = req.body;
   console.log(article);
-  const articleModif = await ax.put('/articles/${id}', {
+  const articleModif = await ax.put(`/articles/${id}`, {
     nom: article.nom,
     contenu: article.contenu,
     auteur: article.auteur,
