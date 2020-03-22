@@ -119,7 +119,7 @@ app.get('/article/:id', async(req, res) => {
 //delete one article specified by an id
 app.get('/article/delete/:id',passport.authenticate('jwt', { session: false }), async(req, res) => {
   const id = req.params.id;
-  const article = await ax.delete(`/articles?q={"id":${id}}`);
+  const article = await ax.delete(`/articles/*?q={"id":${id}}`);
   await res.json(article.data);
 });
 
