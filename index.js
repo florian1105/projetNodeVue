@@ -89,6 +89,7 @@ app.get('/commentaires/:idArticle', (req, res) => {
 //add article
 app.post('/article/add', jSonParser, async(req, res) => {
   var article = req.body
+  console.log(article)
   ax.post('/articles',article).then(function (response) {
     // handle success
     res.json(response.data);
