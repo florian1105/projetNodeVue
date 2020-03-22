@@ -112,7 +112,7 @@ app.post('/article/modify/:id', jSonParser,passport.authenticate('jwt', { sessio
 //one article specified by an id
 app.get('/article/:id', async(req, res) => {
 	var id = req.params.id;
-  	var article = await ax.get(`/articles?q={"id":"${id}"}`);
+  	var article = await ax.get(`/articles/${id}`);
   	res.json(article.data);
 });
 
@@ -120,7 +120,7 @@ app.get('/article/:id', async(req, res) => {
 //delete one article specified by an id
 app.get('/article/delete/:id',passport.authenticate('jwt', { session: false }), async(req, res) => {
 	var id = req.params.id;
-  	var article = await ax.delete(`/articles/*?q={"id":${id}}`);
+  	var article = await ax.delete(`/articles?q={"id":${id}}`);
   	res.json(article.data);
 });
 
