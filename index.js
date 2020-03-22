@@ -71,7 +71,7 @@ app.get('/articles/:id', (req, res) => {
 app.get('/article/auteur/:id', (req,res) => {
   var id = req.params.id
   ax.get(`/articles?q={"auteur.email":"${id}"}`).then(function (response) {
-    console.log(response.data.auteur)
+    console.log(response.data)
     res.json(response.data.auteur._id)
 
   })
