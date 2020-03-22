@@ -80,8 +80,9 @@ app.get('/commentaires/:idArticle', (req, res) => {
 });
 
 //add article
-app.get('/article/add', async(req, res) => {
-  ax.get('/articles').then(function (response) {
+app.post('/article/add', jSonParser, async(req, res) => {
+  var article = req.body
+  ax.post('/articles',article).then(function (response) {
     // handle success
     res.json(response.data);
   });
