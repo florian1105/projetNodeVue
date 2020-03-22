@@ -91,6 +91,7 @@ app.get('/article/add', async(req, res) => {
 app.post('/article/modify/:id', async(req, res) => {
   const id = req.params.id;
   const article = req.body;
+  console.log(article);
   const articleModif = await ax.put('/articles/${id}', {
     nom: article.nom,
     contenu: article.contenu,
