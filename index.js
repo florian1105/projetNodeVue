@@ -112,7 +112,7 @@ app.post('/article/modify/:id', jSonParser,async(req, res) => {
 //one article specified by an id
 app.get('/article/:id', async(req, res) => {
 	var id = req.params.id;
-  	var article = await ax.get(`/articles?ID=${id}`);
+  	var article = await ax.get(`/articles?id=${id}`);
   	res.json(article.data);
 });
 
