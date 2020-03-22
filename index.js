@@ -90,13 +90,13 @@ app.get('/article/add', async(req, res) => {
 //modify article
 app.post('/article/modify/:id', async(req, res) => {
   var id = req.params.id;
-  const articleModif = await axiosDB.put(/articles/${id}, {
+  const articleModif = await axiosDB.put('/articles/${id}', {
     nom: req.body.nom,
     contenu: req.body.contenu,
     auteur: req.body.auteur,
   });
     // handle success
-    res.json(articleModif.data);
+   await res.json(articleModif.data);
 });
 
 //one article specified by an id
