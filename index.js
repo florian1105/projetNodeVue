@@ -70,7 +70,7 @@ app.get('/articles/:id', (req, res) => {
 
 app.get('/article/auteur/:id', (req,res) => {
   var id = req.params.id
-  ax.get(`/articles/auteur/_id?q={"auteur.email":"${id}"}`).then(function (response) {
+  ax.get(`/articles?q={"auteur.email":"${id}"}`).then(function (response) {
       res.json(response.data)
   })
 });
