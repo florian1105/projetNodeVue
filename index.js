@@ -5,12 +5,11 @@ const jwt = require('jsonwebtoken')
 const passport = require('passport')
 const passportJWT = require('passport-jwt')
 const axios = require('axios')
-var cors = require('cors')
+const cors = require('cors');
 const secret = 'thisismysecret'
 const jSonParser = bodyParser.json()
 const app = express()
 app.use(cors())
-var request = require("request");
 
 const ExtractJwt = passportJWT.ExtractJwt
 const JwtStrategy = passportJWT.Strategy
@@ -60,7 +59,7 @@ app.get('/articles', (req, res) => {
 
 //all articles for one author
 app.get('/articles/:id', (req, res) => {
-  var id = req.params.id
+  const id = req.params.id;
   ax.get(`/articles?q={"auteur.email":"${id}"}`).then(function (response) {
     // handle success
     res.json(response.data)
@@ -68,7 +67,7 @@ app.get('/articles/:id', (req, res) => {
 });
 
 app.get('/article/auteur/:id', (req,res) => {
-  var id = req.params.id
+  const id = req.params.id;
   ax.get(`/members?q={"email":"${id}"}`,jSonParser).then(function (response) {
     res.json(response.data)
 
@@ -78,7 +77,7 @@ app.get('/article/auteur/:id', (req,res) => {
 
 //all commentaires for one article
 app.get('/commentaires/:idArticle', (req, res) => {
-  var id = req.params.id;
+  const id = req.params.id;
   ax.get(`/commentaires?q={"article":"${id}"}`).then(function (response) {
     // handle success
     res.json(response.data);
@@ -87,7 +86,7 @@ app.get('/commentaires/:idArticle', (req, res) => {
 
 //add article
 app.post('/article/add', jSonParser,passport.authenticate('jwt', { session: false }), async(req, res) => {
-  var article = req.body
+  const article = req.body;
   console.log(article)
   ax.post('/articles',article).then(function (response) {
     // handle success
@@ -111,17 +110,17 @@ app.post('/article/modify/:id', jSonParser,passport.authenticate('jwt', { sessio
 
 //one article specified by an id
 app.get('/article/:id', async(req, res) => {
-	var id = req.params.id;
-  	var article = await ax.get(`/articles/${id}`);
-  	res.json(article.data);
+  const id = req.params.id;
+  const article = await ax.get(`/articles?q={"id":${id}}`);
+  await res.json(article.data);
 });
 
 
 //delete one article specified by an id
 app.get('/article/delete/:id',passport.authenticate('jwt', { session: false }), async(req, res) => {
-	var id = req.params.id;
-  	var article = await ax.delete(`/articles?q={"id":${id}}`);
-  	res.json(article.data);
+  const id = req.params.id;
+  const article = await ax.delete(`/articles?q={"id":${id}}`);
+  await res.json(article.data);
 });
 
 app.post('/login', jSonParser, async (req, res) => {
