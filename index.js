@@ -10,7 +10,6 @@ const secret = 'thisismysecret'
 const jSonParser = bodyParser.json()
 const app = express()
 app.use(cors())
-const users = [];
 var request = require("request");
 
 const ExtractJwt = passportJWT.ExtractJwt
@@ -35,7 +34,7 @@ const jwtOptions = {
 
 const jwtStrategy = new JwtStrategy(jwtOptions, function(payload, next) {
   // usually this would be a database call:
-  const user = users.find(user => user.email === payload.user)
+  const user = ax.get(`/members?q={email:${payload.email}`);
 
   if (user) {
     next(null, user)
@@ -119,7 +118,7 @@ app.get('/article/:id', async(req, res) => {
 
 
 //delete one article specified by an id
-app.get('/article/delete/:id', jSonParser,passport.authenticate('jwt', { session: false }), async(req, res) => {
+app.get('/article/delete/:id',passport.authenticate('jwt', { session: false }), async(req, res) => {
 	var id = req.params.id;
   	var article = await ax.delete(`/articles/*?q={"id":${id}}`);
   	res.json(article.data);
