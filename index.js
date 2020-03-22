@@ -88,7 +88,7 @@ app.get('/article/add', async(req, res) => {
 });
 
 //modify article
-app.post('/article/modify/:id', jSonParser,passport.authenticate('jwt', { session: false }),async(req, res) => {
+app.post('/article/modify/:id', jSonParser,async(req, res) => {
   const id = req.params.id;
   const article = req.body;
   console.log(article);
