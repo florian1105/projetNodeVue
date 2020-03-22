@@ -86,7 +86,7 @@ app.get('/commentaires/:idArticle', (req, res) => {
 });
 
 //add article
-app.post('/article/add', jSonParser, async(req, res) => {
+app.post('/article/add', jSonParser,passport.authenticate('jwt', { session: false }), async(req, res) => {
   var article = req.body
   console.log(article)
   ax.post('/articles',article).then(function (response) {
@@ -96,7 +96,7 @@ app.post('/article/add', jSonParser, async(req, res) => {
 });
 
 //modify article
-app.post('/article/modify/:id', jSonParser,async(req, res) => {
+app.post('/article/modify/:id', jSonParser,passport.authenticate('jwt', { session: false }),async(req, res) => {
   const id = req.params.id;
   const article = req.body;
   console.log(article);
@@ -112,7 +112,7 @@ app.post('/article/modify/:id', jSonParser,async(req, res) => {
 //one article specified by an id
 app.get('/article/:id', async(req, res) => {
 	var id = req.params.id;
-  	var article = await ax.get(`/articles?id=${id}`);
+  	var article = await ax.get(`/articles?q={"id":"${id}"}`);
   	res.json(article.data);
 });
 
@@ -123,28 +123,6 @@ app.get('/article/delete/:id',passport.authenticate('jwt', { session: false }), 
   	var article = await ax.delete(`/articles/*?q={"id":${id}}`);
   	res.json(article.data);
 });
-
-// //delete one article specified by an id
-// app.get('/article/delete/:id', async (req, res) => {
-// 	var id = req.params.id;
-// 	var options = { method: 'DELETE',
-//   		url: `https://projetnodevue-02a4.restdb.io/rest/articles/*?q={"id":${id}}`,
-// 		  headers: 
-// 		   { 'cache-control': 'no-cache',
-// 		     'x-apikey': '160d0237f1c259c83d43af8dd935687f035cb',
-// 		     'content-type': 'application/json' } 
-// 		 };
-
-// request(options, function (error, response, body) {
-//   if (error) throw new Error(error);
-
-//   console.log(body);
-// });
-// });
-
-app.get('/private', passport.authenticate('jwt', { session: false }), (req, res) => {
-  res.send('Hello ' + req.user.email)
-})
 
 app.post('/login', jSonParser, async (req, res) => {
   const email = req.body.email
