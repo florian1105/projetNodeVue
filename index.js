@@ -89,11 +89,14 @@ app.get('/article/add', async(req, res) => {
 
 //modify article
 app.post('/article/modify/:id', async(req, res) => {
-  console.log(req.body);
-  await ax.put('/articles/:id',req.body).then(function (response) {
-    // handle success
-    res.json(response.data);
+  var id = req.params.id;
+  const articleModif = await axiosDB.put(/articles/${id}, {
+    nom: req.body.nom,
+    contenu: req.body.contenu,
+    auteur: req.body.auteur,
   });
+    // handle success
+    res.json(articleModif.data);
 });
 
 //one article specified by an id
@@ -104,7 +107,7 @@ app.get('/article/:id', async(req, res) => {
 });
 
 
-//one article specified by an id
+//delete one article specified by an id
 app.get('/article/delete/:id', passport.authenticate('jwt', { session: false }), async(req, res) => {
 	var id = req.params.id;
   	var article = await ax.delete(`/articles/*?q={"id":${id}}`);
